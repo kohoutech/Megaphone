@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using System.Drawing;
 
 using Megaphone.Audio;
+using Transonic.Wave;
 
 namespace Megaphone.Widgets
 {
@@ -43,7 +44,7 @@ namespace Megaphone.Widgets
         private Label lblBalance;
 
         public MegaWindow megaWindow;
-        public Megaphone megaphoneA;
+        public Waverly waverly;
         public AudioFile audioFile;
 
         public bool isPlaying;
@@ -53,7 +54,7 @@ namespace Megaphone.Widgets
         {
             InitializeComponent();
             megaWindow = _megaWindow;
-            megaphoneA = megaWindow.megaphoneA;
+            waverly = megaWindow.waverly;
 
             isPlaying = false;
             isPaused = false;
@@ -296,13 +297,13 @@ namespace Megaphone.Widgets
         private void hsbVolume_Scroll(object sender, ScrollEventArgs e)
         {
             float volume = hsbVolume.Value / 100.0f;
-            megaphoneA.setVolume(volume);
+            waverly.setVolume(volume);
         }
 
         private void hsbBalance_Scroll(object sender, ScrollEventArgs e)
         {
             float balance = hsbBalance.Value / 100.0f;
-            megaphoneA.setBalance(balance);
+            waverly.setBalance(balance);
         }
         public void timerTick(int msTime)
         {

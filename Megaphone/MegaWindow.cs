@@ -27,17 +27,18 @@ using System.Text;
 using System.Windows.Forms;
 
 using Megaphone.Audio;
-using Megaphone.IO;
 using Megaphone.Widgets;
 using Megaphone.Dialogs;
 
+using Transonic.Wave;
+
 namespace Megaphone
 {
-    public partial class MegaWindow : Form
+    public partial class MegaWindow : Form, IWaveView
     {
         //model
         public AudioFile currentAudio;
-        public Megaphone megaphoneA;
+        public Waverly waverly;
 
         //view
         public ControlPanel controlPanel;
@@ -49,7 +50,7 @@ namespace Megaphone
         public MegaWindow()
         {
             InitializeComponent();
-            megaphoneA = new Megaphone(this);
+            waverly = new Waverly(this);
             currentAudio = null;
 
             //control panel
@@ -68,6 +69,7 @@ namespace Megaphone
             {
                 currentAudio.close();
             }
+            waverly.shutDown();
         }
 
 
@@ -100,13 +102,13 @@ namespace Megaphone
         //transport actions
         public void playTransport()
         {
-            megaphoneA.playTransport();
+            waverly.playTransport();
             masterTimer.Start();
         }
 
         public void pauseTransport(bool _isPaused)
         {
-            megaphoneA.pauseTransport();
+            waverly.pauseTransport();
             if (_isPaused)
             {
                 masterTimer.Stop();
@@ -119,7 +121,7 @@ namespace Megaphone
 
         public void stopTransport()
         {
-            megaphoneA.stopTransport();
+            waverly.stopTransport();
             masterTimer.Stop();
             controlPanel.timerTick(0);
         }
@@ -167,7 +169,7 @@ namespace Megaphone
         private void settingsTransportMenuItem_Click(object sender, EventArgs e)
         {
             //call get import filename dialog box
-            TransportSettingsDialog transDialog = new TransportSettingsDialog(megaphoneA.getOutputDeviceList());
+            TransportSettingsDialog transDialog = new TransportSettingsDialog(waverly.getOutputDeviceList());
             transDialog.ShowDialog();
             if (transDialog.DialogResult == DialogResult.Cancel) return;
 
@@ -181,7 +183,7 @@ namespace Megaphone
 
         private void aboutHelpMenuItem_Click(object sender, EventArgs e)
         {
-            String msg = "Megaphone\nversion 1.0.0\n" + "\xA9 Transonic Software 2005-2017\n" + "http://transonic.kohoutech.com";
+            String msg = "Megaphone\nversion 1.0.1\n" + "\xA9 Transonic Software 2005-2017\n" + "http://transonic.kohoutech.com";
             MessageBox.Show(msg, "About");
         }
 
@@ -189,7 +191,7 @@ namespace Megaphone
 
         private void masterTimer_Tick(object sender, EventArgs e)
         {
-            int curPos = megaphoneA.getCurrentPos();                                //in samples
+            int curPos = waverly.getCurrentPos();                                //in samples
             int msTime = (int)((curPos * 1000.0f) / currentAudio.sampleRate);       //in msec
 
             controlPanel.timerTick(msTime);
@@ -198,7 +200,7 @@ namespace Megaphone
         public void setCurrentTime(int msTime)
         {
             int curPos = (int)((msTime / 1000.0f) * currentAudio.sampleRate);
-            megaphoneA.setCurrentPos(curPos);
+            waverly.setCurrentPos(curPos);
 
             controlPanel.timerTick(msTime);
         }

@@ -22,12 +22,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Transonic.Wave;
+
 namespace Megaphone.Audio
 {
     public class AudioFile
     {
         MegaWindow megaWindow;
-        Megaphone megaphoneA;
+        Waverly waverly;
 
         public String filename;
         public int sampleRate;
@@ -41,17 +43,17 @@ namespace Megaphone.Audio
         public AudioFile(MegaWindow _megaWindow, String _filename)
         {
             megaWindow = _megaWindow;
-            megaphoneA = megaWindow.megaphoneA;
+            waverly = megaWindow.waverly;
 
             filename = _filename;
-            megaphoneA.openAudioFile(filename);
-            sampleRate = megaphoneA.getAudioSampleRate();
-            duration = megaphoneA.getAudioDuration();
+            waverly.openAudioFile(filename);
+            sampleRate = waverly.getAudioSampleRate();
+            duration = waverly.getAudioDuration();
         }
 
         public void close()
         {
-            megaphoneA.closeAudioFile();
+            waverly.closeAudioFile();
         }
     }
 }

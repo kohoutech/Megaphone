@@ -74,8 +74,9 @@
     <Compile Include="Dialogs\TransportSettingsDialog.Designer.cs">
       <DependentUpon>TransportSettingsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="IO\WaveDevices.cs" />
-    <Compile Include="Megaphone.cs" />
+    <Compile Include="Wave\IWaveView.cs" />
+    <Compile Include="Wave\System\WaveDevices.cs" />
+    <Compile Include="Wave\Waverly.cs" />
     <Compile Include="MegaWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,9 +116,28 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Wave\Waverly.vcxproj" />
+    <None Include="Wave\Waverly.vcxproj.filters" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Megaphone.ico" />
+    <Content Include="Wave\Audio\AudioFile.cpp" />
+    <Content Include="Wave\Audio\AudioFile.h" />
+    <Content Include="Wave\Audio\Project.cpp" />
+    <Content Include="Wave\Audio\Project.h" />
+    <Content Include="Wave\Audio\Track.cpp" />
+    <Content Include="Wave\Audio\Track.h" />
+    <Content Include="Wave\Audio\WaveBuffer.cpp" />
+    <Content Include="Wave\Audio\WaveBuffer.h" />
+    <Content Include="Wave\Engine\Transport.cpp" />
+    <Content Include="Wave\Engine\Transport.h" />
+    <Content Include="Wave\System\WaveInDevice.cpp" />
+    <Content Include="Wave\System\WaveInDevice.h" />
+    <Content Include="Wave\System\WaveOutDevice.cpp" />
+    <Content Include="Wave\System\WaveOutDevice.h" />
+    <Content Include="Wave\Waverly.cpp" />
+    <Content Include="Wave\Waverly.h" />
+    <Content Include="Wave\Waverly.vcxproj.user" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -141,7 +161,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="IO\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
