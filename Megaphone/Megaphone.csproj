@@ -121,14 +121,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Megaphone.ico" />
-    <Content Include="Wave\Audio\AudioFile.cpp" />
-    <Content Include="Wave\Audio\AudioFile.h" />
-    <Content Include="Wave\Audio\Project.cpp" />
-    <Content Include="Wave\Audio\Project.h" />
-    <Content Include="Wave\Audio\Track.cpp" />
-    <Content Include="Wave\Audio\Track.h" />
-    <Content Include="Wave\Audio\WaveBuffer.cpp" />
-    <Content Include="Wave\Audio\WaveBuffer.h" />
+    <Content Include="Wave\Engine\AudioData.cpp" />
+    <Content Include="Wave\Engine\AudioData.h" />
+    <Content Include="Wave\File\AudioFile.cpp" />
+    <Content Include="Wave\File\AudioFile.h" />
+    <Content Include="Wave\Multitrack\Recorder.cpp" />
+    <Content Include="Wave\Multitrack\Recorder.h" />
+    <Content Include="Wave\Multitrack\Track.cpp" />
+    <Content Include="Wave\Multitrack\Track.h" />
+    <Content Include="Wave\System\WaveBuffer.cpp" />
+    <Content Include="Wave\System\WaveBuffer.h" />
     <Content Include="Wave\Engine\Transport.cpp" />
     <Content Include="Wave\Engine\Transport.h" />
     <Content Include="Wave\System\WaveInDevice.cpp" />
@@ -163,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IO\" />
+    <Folder Include="Wave\VST\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
