@@ -82,12 +82,12 @@ extern "C" __declspec(dllexport) void TransportSetBalance(float balance) {
 
 extern "C" __declspec(dllexport) float TransportGetLeftLevel() {
 
-	return Waverly::AWaverly->currentAudioFile->getLeftLevel();
+	return Waverly::AWaverly->transport->getLeftMaxLevel();	
 }
 
 extern "C" __declspec(dllexport) float TransportGetRightLevel() {
 
-	return Waverly::AWaverly->currentAudioFile->getRightLevel();
+	return Waverly::AWaverly->transport->getRightMaxLevel();
 }
 
 extern "C" __declspec(dllexport) int TransportGetCurrentPos() {

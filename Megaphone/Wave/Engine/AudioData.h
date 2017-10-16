@@ -25,7 +25,7 @@ class Transport;
 
 class AudioData
 {
-	public:
+public:
 	AudioData(Waverly* AWaverly);
 	~AudioData();
 
@@ -37,21 +37,25 @@ class AudioData
 	int sampleCount;		//samples stored as floats
 	int duration;			//in seconds
 
-	//for each channel
-	float* level;
+	inline float getLevel(int channelNum) { return (channelNum < channelCount) ? level[channelNum] : 0; }
+	inline float getLeftPan(int channelNum) { return (channelNum < channelCount) ? leftPan[channelNum] : 0; }
+	inline float getRightPan(int channelNum) { return (channelNum < channelCount) ? rightPan[channelNum] : 0; }
+
+	void setLevel(int channelNum, float _level);
+	void setPan(int channelNum, float _pan);
+
+	int getchannelCount() { return channelCount; }
+	virtual void setchannelCount(int count);
+	virtual void getchannelData(int channelNum, float* dataBuf, int dataPos, int dataSize);
+
+protected:
+	//for each channel, range = 0.0 to 1.0
+	float* level;			
 	float* leftPan;
 	float* rightPan;
-		
-	inline float getLevel(int channelNum) { return level[channelNum]; }
-	void setLevel(int channelNum, float _level) {level[channelNum] = _level; }
-	inline float getLeftPan(int channelNum) { return leftPan[channelNum]; }
-	inline float getRightPan(int channelNum) { return rightPan[channelNum]; }
-	void setPan(int channelNum, float _pan) { rightPan[channelNum] = _pan; leftPan[channelNum] = 1.0f - rightPan[channelNum]; }
 
 	//channel data
 	int channelCount;
-	void setchannelCount(int count);
-	void getchannelData(int channelNum, float* dataBuf, int dataSize);
 };
 
 #endif // AUDIODATA_H

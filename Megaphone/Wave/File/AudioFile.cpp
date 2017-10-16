@@ -35,11 +35,12 @@ AudioFile::AudioFile(Waverly* _AWaverly, char* filename) : AudioData (_AWaverly)
 
 	for (int i = 0; i < 2; i++) 
 	{
-		level[i] = 0.0f;
+		level[i] = 1.0f;
 		leftPan[i] = 0.5f;
 		rightPan[i] = 0.5f;
 	}
 
+	channelCount = 2;
 	tracks[0] = NULL;
 	tracks[1] = NULL;
 
@@ -54,6 +55,30 @@ AudioFile::~AudioFile() {
 			delete tracks[i];
 	}
 }
+
+//- channel management ----------------------------------------------------------
+
+void AudioFile::getchannelData(int channelNum, float* dataBuf, int dataPos, int dataSize) {
+
+	float* track = tracks[channelNum];
+	int endPos = dataPos + dataSize;
+	if (sampleCount > endPos) 
+	{
+		for (int i = dataPos, j = 0; (i < endPos); i++, j++)
+			dataBuf[j] = track[i];
+		//memcpy(dataBuf, &track[dataPos], dataSize * sizeof(float));
+	} 
+	else 
+	{
+		int copySize = sampleCount - dataPos;
+		for (int i = dataPos, j = 0; i < copySize; i++, j++)
+			dataBuf[j] = track[i];
+		int remainder = dataSize - copySize;
+		for (int i = dataPos; i < remainder; i++)
+			dataBuf[i] = 0.0f;
+	}
+}
+
 
 //- data import/export methods ------------------------------------------------
 

@@ -34,6 +34,8 @@ public:
 	AudioFile(Waverly* AWaverly, char* filename);
 	~AudioFile();
 
+	void getchannelData(int channelNum, float* dataBuf, int dataPos, int dataSize);
+
 protected:
 
 	float* tracks[2];

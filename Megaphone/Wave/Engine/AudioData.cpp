@@ -36,7 +36,6 @@ AudioData::AudioData(Waverly* _AWaverly) {
 	rightPan = NULL;
 
 	channelCount = 0;
-
 }
 
 //destruct
@@ -46,18 +45,24 @@ AudioData::~AudioData() {
 }
 
 
-//- AudioFile i/o methods -------------------------------------------------------
+//- channel management ----------------------------------------------------------
 
-void AudioData::close() {
+void AudioData::setLevel(int channelNum, float _level) {
+	if (channelNum < channelCount) {
+		level[channelNum] = _level; 
+	}
 }
 
-//- track management ----------------------------------------------------------
-
-float AudioData::getLeftLevel() { 
-	return (transport->isCurPlaying() ? leftLevel : 0.0f); 
+//pan = 0.0 is hard left, pan = 1.0 is hard right; pan = 0.5 is balanced
+void AudioData::setPan(int channelNum, float _pan) { 
+	if (channelNum < channelCount) {
+		rightPan[channelNum] = _pan; 
+		leftPan[channelNum] = 1.0f - rightPan[channelNum]; 
+	}
 }
 
-float AudioData::getRightLevel() { 
-	return (transport->isCurPlaying() ? rightLevel : 0.0f); 
+void AudioData::setchannelCount(int count) {
 }
 
+void AudioData::getchannelData(int channelNum, float* dataBuf, int dataPos, int dataSize) {
+}
